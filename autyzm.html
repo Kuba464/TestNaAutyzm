@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>Test</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    margin: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 100px auto;
+    background: rgba(0,0,0,0.4);
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+#title {
+    margin-bottom: 20px;
+}
+
+#question {
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+#value {
+    font-size: 30px;
+    font-weight: bold;
+    margin: 15px;
+}
+
+input[type="range"] {
+    width: 100%;
+}
+
+button {
+    margin-top: 20px;
+    padding: 12px 25px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    background: #00c853;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #00a844;
+}
+
+#quiz {
+    display: none;
+}
+
+#result {
+    font-size: 28px;
+    font-weight: bold;
+    display: none;
+}
+
+#resultDescription {
+    font-size: 14px;
+    font-weight: normal;
+    margin-top: 15px;
+    line-height: 1.5;
+    opacity: 0.9;
+}
+
+#progress {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1 id="title">Test Autyzmu</h1>
+
+<button id="startBtn" onclick="startTest()">Rozpocznij test</button>
+
+<div id="quiz">
+
+<div id="progress"></div>
+
+<div id="question"></div>
+
+<input type="range" min="0" max="10" value="0" id="slider">
+
+<div id="value">0</div>
+
+<button onclick="nextQuestion()">Dalej</button>
+
+</div>
+
+<div id="result">
+Wynik: Masz autyzm.
+
+<div id="resultDescription">
+Autyzm (spektrum autyzmu) to zaburzenie neurorozwojowe, które wpływa na sposób komunikacji,
+rozumienia emocji i interakcji społecznych. Jeśli otrzymałeś taki wynik, zaleca się kontakt
+ze specjalistą, takim jak psycholog, psychiatra lub lekarz rodzinny, który może skierować
+na profesjonalną diagnozę. Wczesna diagnoza może pomóc w lepszym zrozumieniu siebie i
+uzyskaniu odpowiedniego wsparcia. Pamiętaj, że tylko specjalista może postawić prawdziwą diagnozę.
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const questions = [
+"Czy lubisz rutynę?",
+"Czy masz trudności społeczne?",
+"Czy wolisz być sam?",
+"Czy łatwo się skupiasz?",
+"Czy unikasz kontaktu wzrokowego?",
+"Czy masz specyficzne zainteresowania?",
+"Czy nie lubisz zmian?",
+"Czy masz trudności z emocjami?",
+"Czy jesteś wrażliwy na dźwięki?",
+"Czy lubisz przewidywalność?",
+"Czy masz trudności z rozmową?",
+"Czy łatwo się stresujesz?",
+"Czy lubisz samotność?",
+"Czy analizujesz szczegóły?",
+"Czy masz własne schematy działania?"
+];
+
+let current = 0;
+
+const questionEl = document.getElementById("question");
+const slider = document.getElementById("slider");
+const valueEl = document.getElementById("value");
+const progressEl = document.getElementById("progress");
+
+slider.oninput = function() {
+    valueEl.innerText = this.value;
+}
+
+function startTest() {
+
+    document.getElementById("startBtn").style.display = "none";
+    document.getElementById("title").style.display = "none";
+
+    document.getElementById("quiz").style.display = "block";
+
+    showQuestion();
+}
+
+function showQuestion() {
+
+    questionEl.innerText = questions[current];
+    progressEl.innerText = "Pytanie " + (current+1) + " z " + questions.length;
+
+    slider.value = 0;
+    valueEl.innerText = 0;
+}
+
+function nextQuestion() {
+
+    current++;
+
+    if(current < questions.length) {
+        showQuestion();
+    }
+    else {
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "block";
+    }
+
+}
+
+</script>
+
+</body>
+</html>
